@@ -139,6 +139,36 @@ class Product {
             return false; // Retourner false si le produit n'est pas trouvé
         }
     }
+
+    public function findAll() {
+        global $pdo; // Assurez-vous que la variable de connexion PDO est accessible
+    
+        // Préparer et exécuter la requête pour récupérer toutes les lignes de la table Product
+        $stmt = $pdo->query('SELECT * FROM Product');
+        $productsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        // Initialiser un tableau pour stocker les instances de Product
+        $products = [];
+    
+        // Parcourir chaque ligne de données et créer une instance de Product
+        foreach ($productsData as $data) {
+            $products[] = new Product(
+                $data['id'],
+                $data['name'],
+                json_decode($data['photos'], true),  // Supposons que les photos sont stockées sous forme de JSON
+                $data['price'],
+                $data['description'],
+                $data['quantity'],
+                new DateTime($data['createdAt']),
+                new DateTime($data['updatedAt']),
+                $data['categoryId']  // Associez la catégorie si nécessaire
+            );
+        }
+    
+        // Retourner le tableau d'instances de Product
+        return $products;
+    }
+    
     
 
     
