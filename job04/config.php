@@ -4,7 +4,7 @@
 $host = 'localhost';
 $dbname = 'draft-shop';
 $username = 'root';
-$password = 'za9?-U5zwD4-6#L';
+$password = '';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
